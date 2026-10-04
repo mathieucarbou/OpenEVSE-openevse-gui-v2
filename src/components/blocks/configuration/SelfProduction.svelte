@@ -237,7 +237,7 @@
 					</div>
 	
 		
-					<div class:is-hidden={$config_store.divert_type==0} class="mb-2">
+					<div class:is-hidden={$config_store.divert_type==0 || $config_store.shelly_lnm_enabled} class="mb-2">
 						<InputForm 
 							title="{$_("config.selfprod.feed")}*"
 							placeholder="/topic/grid_ie"
@@ -248,6 +248,9 @@
 						/>
 						<div class="is-size-7 has-text-left">{$_("config.selfprod.feed-excess-desc")}</div>
 					</div>
+					{#if $config_store.divert_type==1 && $config_store.shelly_lnm_enabled}
+					<div class="is-size-7 has-text-info mb-2">{$_("config.selfprod.feed-excess-shelly")}</div>
+					{/if}
 					
 					<div class="mb-2 is-flex is-justify-content-center">
 						<Borders>

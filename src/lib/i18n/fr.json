@@ -205,6 +205,7 @@
             "rfid": "RFID",
             "shaper": "Délestage",
             "selfprod": "Auto-production",
+            "shellylnm": "Shelly LNM",
             "ocpp": "OCPP",
             "vehicle": "Véhicule",
             "emon": "Emoncms",
@@ -356,7 +357,8 @@
             "announcetopic-desc": "Sujet dans lequel OpenEVSE va publier les données d'annonce et LWT",
             "retain": "Retenir les publications (Retain)",
             "topic-voltage": "Sujet tension (V)",
-            "topic-voltage-desc": "Sujet MQTT de la tension (en V) pour améliorer le calcul de puissance"
+            "topic-voltage-desc": "Sujet MQTT de la tension (en V) pour améliorer le calcul de puissance",
+            "topic-voltage-shelly": "Shelly LNM fournit la tension tant qu’il est activé."
         },
         "rfid": {
             "managetag": "Gérer les badges autorisés",
@@ -378,6 +380,7 @@
             "shaperdesc": "Module le courant de charge selon la puissance totale instantanée de votre compteur afin de ne pas dépasser votre contrat.",
             "maxpower": "Puissance Maxi autorisée (W)",
             "livepower": "Topic MQTT Puissance Instantanée (W)",
+            "livepower-shelly": "Shelly LNM fournit la puissance instantanée tant qu’il est activé.",
             "minpausetime": "Temps minimum en pause (sec)",
             "maxinterval": "Intervalle max (sec)",
             "maxinterval-desc": "Intervalle max entre 2 mises à jour de puissance instantanée avant de se mettre en sécurité.",
@@ -389,6 +392,28 @@
             "missing-current_shaper_data_maxinterval": "Intervalle max manquant",
             "help-mqtt": "Si MQTT n'est pas une option, vous pouvez POST {data} périodiquement sur '/status'",
             "help-main": "<p>OpenEVSE peut moduler le courant max en fonction de la puissance instantanée de votre compteur afin d'éviter de dépasser votre abonnement.</p> <p> Une fois que le module est activé, il va avoir besoin de recevoir la puissance instantanée (en W) depuis un topic MQTT ou post HTTP sur le endpoint /status.</p>"
+        },
+        "shellylnm": {
+            "desc": "Lit localement la puissance et la tension du réseau depuis un compteur Shelly via Shelly Local Network Messaging (multicast UDP). Une fois activé, ces mesures locales remplacent les topics MQTT pour l'excès de production (Auto-production), la puissance instantanée (Délestage) et la tension (MQTT).",
+            "listening": "À l'écoute des paquets Shelly LNM",
+            "notlistening": "Pas à l'écoute",
+            "lastupdated": "Dernière mise à jour",
+            "addr": "Adresse multicast",
+            "addr-desc": "Groupe multicast UDP vers lequel les appareils Shelly envoient leur statut LNM, ex. 239.255.55.55",
+            "port": "Port multicast",
+            "port-desc": "Port UDP du groupe multicast LNM",
+            "powerfield": "Champ puissance",
+            "powerfield-desc": "Champ JSON de la puissance active dans le composant de statut LNM, ex. act_power (Shelly EM / EM Mini), total_act_power (Shelly 3EM), a_act_power / b_act_power / c_act_power (par phase)",
+            "voltagefield": "Champ tension",
+            "voltagefield-desc": "Sélectionnez le champ JSON de la tension dans le composant de statut LNM.",
+            "missing-shelly_lnm_addr": "Adresse multicast manquante",
+            "missing-shelly_lnm_port": "Port multicast manquant",
+            "missing-shelly_lnm_power_field": "Champ puissance manquant",
+            "help-main": "<p>Shelly Local Network Messaging (LNM) est le protocole local multicast UDP de Shelly. Les appareils Shelly publient des mesures comme la puissance active et la tension sans nécessiter de MQTT ni de polling HTTP.</p><p>Une fois activé, OpenEVSE rejoint le groupe multicast et utilise les mesures localement : la puissance réseau remplace le flux d'excès de l'Auto-production, la puissance instantanée du Délestage et le flux de tension.</p>",
+            "help-1": "L'appareil Shelly doit avoir une instance LNM configurée pour transmettre (TX) le statut de son composant compteur vers la même adresse et le même port multicast.",
+            "help-2": "La puissance réseau est positive lors d'un import du réseau et négative lors d'un export, comme le flux d'excès MQTT.",
+            "help-3": "L’âge affiché correspond au temps écoulé depuis la dernière mesure de puissance reçue.",
+            "help-setup": "<p>Pour configurer l'appareil Shelly (adaptez l'adresse et le composant à votre installation) :</p><p><code>http://SHELLY_IP/rpc/LNM.Create?config={\"addr\":\"{addr}:{port}\"}</code></p><p><code>http://SHELLY_IP/rpc/LNM.SetConfig?id=200&config={\"tx\":{\"enable\":true,\"components\":[\"em1:0\"]}}</code></p>"
         },
         "selfprod": {
             "desc": "Ajuste dynamiquement la puissance de charge en fonction de l'energie produite ou de l'export vers le réseau (+I/-E).",
@@ -404,6 +429,7 @@
             "feed": "Sujet MQTT",
             "feed-prod-desc": "Sujet MQTT auto-production (en W) pour moduler la charge en fonction de la production",
             "feed-excess-desc": "Sujet MQTT +Import/-Export pour moduler la charge en fonction de l'excès de puissance",
+            "feed-excess-shelly": "Shelly LNM fournit la puissance réseau tant qu’il est activé.",
             "powerratio": "Ratio de puissance PV requise",
             "powerratio-desc": "Ratio de courant PV suffisant pour démarrer la charge ou augmenter le courant.",
             "smoothattack": "Filtrage augmentation puissance (sec)",

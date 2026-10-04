@@ -205,6 +205,7 @@
 			"rfid": "RFID",
 			"shaper": "Shaper",
 			"selfprod": "Producción propia",
+			"shellylnm": "Shelly LNM",
 			"ocpp": "OCPP",
 			"vehicle": "Vehículo",
 			"emon": "Monitoreo de energía",
@@ -354,7 +355,8 @@
 			"announcetopic-desc": "Topic donde OpenEVSE publicará datos de anuncios y LWT",
 			"retain": "Conservar los datos publicados",
 			"topic-voltage": "Tema para Voltaje",
-			"topic-voltage-desc": "Topic MQTT de voltaje para mejorar los cálculos de potencia"
+			"topic-voltage-desc": "Topic MQTT de voltaje para mejorar los cálculos de potencia",
+			"topic-voltage-shelly": "Shelly LNM proporciona el voltaje mientras esté activado."
 		},
 		"rfid": {
 			"managetag": "Administrar etiquetas escaneadas",
@@ -376,6 +378,7 @@
 			"shaperdesc": "Acelera la corriente de carga siguiendo las cargas de tu casa para evitar exceder lo que tu plan de energía puede ofrecer.",
 			"maxpower": "Potencia máxima permitida (W)",
 			"livepower": "Tema MQTT para carga de potencia activa (W)",
+			"livepower-shelly": "Shelly LNM proporciona la carga de potencia mientras esté activado.",
 			"minpausetime": "Tiempo mínimo de pausa (seg)",
 			"maxinterval": "Intervalo máximo de datos (seg)",
 			"maxinterval-desc": "Tiempo máximo entre datos de energía en vivo antes de pasar a prueba de fallos",
@@ -387,6 +390,28 @@
 			"missing-current_shaper_data_maxinterval": "Falta el intervalo máximo de datos",
 			"help-mqtt": "Si MQTT no es una opción, puede HTTP POST {data} periódicamente a `/status`",
 			"help-main": "<p>OpenEVSE puede configurar la corriente máxima de acuerdo con la carga de su casa en tiempo real, lo que evita exceder la potencia máxima que su plan de energía puede manejar.</p><p>Una vez que el módulo está habilitado, deberá recibir la carga total de energía en vivo datos (en W) de un tema MQTT o una publicación HTTP en el punto final /status.</p>"
+		},
+		"shellylnm": {
+			"desc": "Lee la potencia y la tensión de la red localmente desde un contador Shelly mediante Shelly Local Network Messaging (multicast UDP). Una vez activado, estas medidas locales sustituyen a los topics MQTT para el exceso de producción (Auto-producción), la potencia instantánea (Shaper) y la tensión (MQTT).",
+			"listening": "Escuchando paquetes Shelly LNM",
+			"notlistening": "No escuchando",
+			"lastupdated": "Última actualización",
+			"addr": "Dirección multicast",
+			"addr-desc": "Grupo multicast UDP al que los dispositivos Shelly envían su estado LNM, p. ej. 239.255.55.55",
+			"port": "Puerto multicast",
+			"port-desc": "Puerto UDP del grupo multicast LNM",
+			"powerfield": "Campo de potencia",
+			"powerfield-desc": "Campo JSON de la potencia activa en el componente de estado LNM, p. ej. act_power (Shelly EM / EM Mini), total_act_power (Shelly 3EM), a_act_power / b_act_power / c_act_power (por fase)",
+			"voltagefield": "Campo de tensión",
+			"voltagefield-desc": "Seleccione el campo JSON del voltaje en el componente de estado LNM.",
+			"missing-shelly_lnm_addr": "Falta la dirección multicast",
+			"missing-shelly_lnm_port": "Falta el puerto multicast",
+			"missing-shelly_lnm_power_field": "Falta el campo de potencia",
+			"help-main": "<p>Shelly Local Network Messaging (LNM) es el protocolo local multicast UDP de Shelly. Los dispositivos Shelly publican medidas como la potencia activa y la tensión sin necesidad de MQTT ni de polling HTTP.</p><p>Una vez activado, OpenEVSE se une al grupo multicast y utiliza las medidas localmente: la potencia de red sustituye al flujo de exceso de la Auto-producción, a la potencia instantánea del Shaper y al flujo de tensión.</p>",
+			"help-1": "El dispositivo Shelly necesita una instancia LNM configurada para transmitir (TX) el estado de su componente contador a la misma dirección y puerto multicast.",
+			"help-2": "La potencia de red es positiva al importar de la red y negativa al exportar, igual que el flujo de exceso MQTT.",
+			"help-3": "La antigüedad mostrada es el tiempo transcurrido desde la última medición de potencia recibida.",
+			"help-setup": "<p>Para configurar el dispositivo Shelly (ajuste la dirección y el componente a su instalación):</p><p><code>http://SHELLY_IP/rpc/LNM.Create?config={\"addr\":\"{addr}:{port}\"}</code></p><p><code>http://SHELLY_IP/rpc/LNM.SetConfig?id=200&config={\"tx\":{\"enable\":true,\"components\":[\"em1:0\"]}}</code></p>"
 		},
 		"selfprod": {
 			"desc": "Ajuste dinámicamente la tasa de carga en función de la autoproducción o el exceso de energía (exportación de red).",
@@ -402,6 +427,7 @@
 			"feed": "Feed",
 			"feed-prod-desc": "Tema MQTT de producción propia (en W) para modular la tasa de carga en función de la producción",
 			"feed-excess-desc": "Grid (+I/-E) Tema MQTT para modular la tasa de carga en función del exceso de potencia",
+			"feed-excess-shelly": "Shelly LNM proporciona la potencia de red mientras esté activado.",
 			"powerratio": "Relación de potencia fotovoltaica requerida",
 			"powerratio-desc": "La fracción de corriente fotovoltaica que es suficiente para comenzar a cargar o incrementar la corriente",
 			"smoothattack": "Divert smoothing attack (seg)",

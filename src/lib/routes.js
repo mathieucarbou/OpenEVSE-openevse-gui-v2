@@ -15,6 +15,7 @@ import Firmware         from '../routes/Firmware.svelte'
 import Time             from '../routes/Time.svelte'
 import Shaper           from '../routes/Shaper.svelte'
 import SelfProduction   from '../routes/SelfProduction.svelte'
+import ShellyLnm        from '../routes/ShellyLnm.svelte'
 import EmonCMS          from '../routes/EmonCMS.svelte'
 import OhmConnect       from '../routes/OhmConnect.svelte'
 import Vehicle          from '../routes/Vehicle.svelte'
@@ -41,6 +42,7 @@ export const routes = {
     '/configuration/time': Time,
     '/configuration/shaper': Shaper,
     '/configuration/selfproduction': SelfProduction,
+    '/configuration/shellylnm': ShellyLnm,
     '/configuration/vehicle': Vehicle,
     '/configuration/emoncms': EmonCMS,
     '/configuration/ohmconnect': OhmConnect,

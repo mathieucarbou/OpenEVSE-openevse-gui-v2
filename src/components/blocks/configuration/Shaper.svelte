@@ -89,10 +89,10 @@
 
 			<div class="is-size-7 mb-2 has-text-centered">{$_("config.shaper.shaperdesc")}</div>
 			<div class="is-flex is-justify-content-center">
-				<Borders grow>
-					<div>
-						<InputForm 
-							title="{$_("config.shaper.maxpower")}*" 
+			<Borders grow>
+				<div>
+					<InputForm
+						title="{$_("config.shaper.maxpower")}*" 
 							bind:this={formdata.current_shaper_max_pwr.input} 
 							type="number" bind:value={formdata.current_shaper_max_pwr.val} 
 							bind:status={formdata.current_shaper_max_pwr.status} 
@@ -101,6 +101,7 @@
 							onChange={()=>setProperty("current_shaper_max_pwr")}
 						/>
 					</div>
+					{#if !$config_store.shelly_lnm_enabled}
 					<div>
 						<InputForm
 							title="{$_("config.shaper.livepower")}" 
@@ -112,6 +113,9 @@
 							onChange={()=>setProperty("mqtt_live_pwr")} 
 						/>
 					</div>
+					{:else}
+					<div class="is-size-7 has-text-info">{$_("config.shaper.livepower-shelly")}</div>
+					{/if}
 					<div>
 						<InputForm 
 							title="{$_("config.shaper.minpausetime")}*" 

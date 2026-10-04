@@ -224,6 +224,7 @@
 						</div>
 
 						<div class="mt-4">
+							{#if !$config_store.shelly_lnm_enabled}
 							<InputForm
 								title={$_("config.mqtt.topic-voltage")}
 								placeholder="topic/voltage"
@@ -235,6 +236,9 @@
 							<div class="is-size-7">
 								{$_("config.mqtt.topic-voltage-desc")}
 							</div>
+							{:else}
+							<div class="is-size-7 has-text-info">{$_("config.mqtt.topic-voltage-shelly")}</div>
+							{/if}
 						</div>
 
 					</Borders>

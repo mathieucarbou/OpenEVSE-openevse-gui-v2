@@ -20,6 +20,7 @@
 				<ConfigMenuButton url="/configuration/rfid" icon="bx:rfid" name={$_("config.titles.rfid")} />
 				<ConfigMenuButton url="/configuration/shaper" icon="fa6-solid:building-shield" name={$_("config.titles.shaper")} />
 				<ConfigMenuButton url="/configuration/selfproduction" icon="fa6-solid:solar-panel" name={$_("config.titles.selfprod")} height="1.3em" />
+				<ConfigMenuButton url="/configuration/shellylnm" icon="fa6-solid:plug-circle-bolt" name={$_("config.titles.shellylnm")} />
 				<ConfigMenuButton url="/configuration/vehicle" icon="bi:ev-front" name={$_("config.titles.vehicle")} />
 				<ConfigMenuButton url="/configuration/ocpp" icon="custom:ocpp" name={$_("config.titles.ocpp")} />
 				<ConfigMenuButton url="/configuration/emoncms" icon="fa6-solid:chart-bar" name={$_("config.titles.emon")} />
